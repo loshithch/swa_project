@@ -1,0 +1,135 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.swa_project"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:3:5-67
+11-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:3:22-64
+12    <uses-permission android:name="android.permission.CAMERA" />
+12-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:4:4-64
+12-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:4:21-61
+13
+14    <queries>
+14-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:24:5-28:15
+15        <intent>
+15-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:25:9-27:18
+16            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
+16-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:26:13-86
+16-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:26:21-83
+17        </intent>
+18    </queries>
+19
+20    <permission
+20-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+21        android:name="com.swa_project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+21-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+22        android:protectionLevel="signature" />
+22-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+23
+24    <uses-permission android:name="com.swa_project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+24-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+24-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+25
+26    <application
+26-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:6:5-25:19
+27        android:name="com.swa_project.MainApplication"
+27-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:7:7-38
+28        android:allowBackup="false"
+28-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:11:7-34
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.9.0] /Users/zinfog/.gradle/caches/transforms-3/13659b94c66de92d98d7f8af61234b95/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+30        android:extractNativeLibs="true"
+31        android:icon="@mipmap/ic_launcher"
+31-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:9:7-41
+32        android:label="@string/app_name"
+32-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:8:7-39
+33        android:roundIcon="@mipmap/ic_launcher_round"
+33-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:10:7-52
+34        android:theme="@style/AppTheme" >
+34-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:12:7-38
+35        <activity
+35-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:13:7-24:18
+36            android:name="com.swa_project.MainActivity"
+36-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:14:9-37
+37            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+37-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:16:9-118
+38            android:exported="true"
+38-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:19:9-32
+39            android:label="@string/app_name"
+39-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:15:9-41
+40            android:launchMode="singleTask"
+40-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:17:9-40
+41            android:windowSoftInputMode="adjustResize" >
+41-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:18:9-51
+42            <intent-filter>
+42-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:20:9-23:25
+43                <action android:name="android.intent.action.MAIN" />
+43-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:21:13-65
+43-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:21:21-62
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:22:13-73
+45-->/Users/zinfog/Desktop/work/Swa_App/android/app/src/main/AndroidManifest.xml:22:23-70
+46            </intent-filter>
+47        </activity>
+48
+49        <uses-library
+49-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:31:9-33:40
+50            android:name="androidx.camera.extensions.impl"
+50-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:32:13-59
+51            android:required="false" />
+51-->[androidx.camera:camera-extensions:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/a2cf35269fb09d435935fa8cc9596b1b/transformed/jetified-camera-extensions-1.1.0/AndroidManifest.xml:33:13-37
+52
+53        <service
+53-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:26:9-35:19
+54            android:name="androidx.camera.core.impl.MetadataHolderService"
+54-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:27:13-75
+55            android:enabled="false"
+55-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:28:13-36
+56            android:exported="false" >
+56-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:29:13-37
+57            <meta-data
+57-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:32:13-34:89
+58                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+58-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:33:17-103
+59                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+59-->[androidx.camera:camera-camera2:1.1.0] /Users/zinfog/.gradle/caches/transforms-3/ea77a2ec8fcd88a721f5a2c7d7ff4777/transformed/jetified-camera-camera2-1.1.0/AndroidManifest.xml:34:17-86
+60        </service>
+61
+62        <provider
+62-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+63            android:name="androidx.startup.InitializationProvider"
+63-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+64            android:authorities="com.swa_project.androidx-startup"
+64-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+65            android:exported="false" >
+65-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+66            <meta-data
+66-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+67                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+67-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+68                android:value="androidx.startup" />
+68-->[androidx.emoji2:emoji2:1.2.0] /Users/zinfog/.gradle/caches/transforms-3/faa3592d2fc203d6c74b9a5f601058a1/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+69            <meta-data
+69-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/zinfog/.gradle/caches/transforms-3/71b91ea8216105cda74b0317da307340/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+70                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+70-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/zinfog/.gradle/caches/transforms-3/71b91ea8216105cda74b0317da307340/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+71                android:value="androidx.startup" />
+71-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/zinfog/.gradle/caches/transforms-3/71b91ea8216105cda74b0317da307340/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+72        </provider>
+73
+74        <meta-data
+74-->[com.facebook.soloader:soloader:0.10.5] /Users/zinfog/.gradle/caches/transforms-3/03d018e18e7118763cc731de8f689ba0/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:12:9-14:37
+75            android:name="com.facebook.soloader.enabled"
+75-->[com.facebook.soloader:soloader:0.10.5] /Users/zinfog/.gradle/caches/transforms-3/03d018e18e7118763cc731de8f689ba0/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:13:13-57
+76            android:value="false" />
+76-->[com.facebook.soloader:soloader:0.10.5] /Users/zinfog/.gradle/caches/transforms-3/03d018e18e7118763cc731de8f689ba0/transformed/jetified-soloader-0.10.5/AndroidManifest.xml:14:13-34
+77    </application>
+78
+79</manifest>
