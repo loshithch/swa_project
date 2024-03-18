@@ -133,7 +133,7 @@ const ScanScreen = () => {
             <View
               style={{flexDirection: 'row', marginTop: responsiveHeight(2)}}>
               <Text style={styles.detailText}>MRP</Text>
-              <Text style={styles.valueText}> :{item.MRP}</Text>
+              <Text style={[styles.valueText,{fontWeight:'800'}]}> :{item.MRP}</Text>
             </View>
             <View
               style={{flexDirection: 'row', marginTop: responsiveHeight(2)}}>
@@ -462,6 +462,7 @@ const styles = StyleSheet.create({
     color: Colors.BLACK_COLOR,
     fontSize: responsiveFontSize(1.6),
     fontFamily: Font.INTER_SEMI_BOLD,
-    // marginTop:responsiveHeight(2.5)
+    position:'absolute',
+    left:responsiveHeight(15),
   },
 });
