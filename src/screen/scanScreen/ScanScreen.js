@@ -133,12 +133,12 @@ const ScanScreen = () => {
             <View
               style={{flexDirection: 'row', marginTop: responsiveHeight(2)}}>
               <Text style={styles.detailText}>MRP</Text>
-              <Text style={[styles.valueText,{fontWeight:'800'}]}> :{item.MRP}</Text>
+              <Text style={[styles.valueText,{fontWeight:'800'}]}>:{item.MRP}</Text>
             </View>
             <View
               style={{flexDirection: 'row', marginTop: responsiveHeight(2)}}>
               <Text style={styles.detailText}>Category</Text>
-              <Text style={styles.valueText}> :{item.Category}</Text>
+              <Text style={styles.valueText}>:{item.Category}</Text>
             </View>
 
             <View
@@ -147,7 +147,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}>
               <Text style={styles.detailText}>Gross weight</Text>
-              <Text style={styles.valueText}> :{item.GrossWeight}</Text>
+              <Text style={styles.valueText}>:{item.GrossWeight}</Text>
             </View>
             <View
               style={{
@@ -155,7 +155,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}>
               <Text style={styles.detailText}>Dimond weight</Text>
-              <Text style={styles.valueText}> :{item.DimondWeight}</Text>
+              <Text style={styles.valueText}>:{item.DimondWeight}</Text>
             </View>
             <View
               style={{
@@ -163,7 +163,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}>
               <Text style={styles.detailText}>Dimond No</Text>
-              <Text style={styles.valueText}> :{item.DimondNo}</Text>
+              <Text style={styles.valueText}>:{item.DimondNo}</Text>
             </View>
             <View
               style={{
@@ -179,7 +179,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}>
               <Text style={styles.detailText}>Otherstone No</Text>
-              <Text style={styles.valueText}> :{item.OtherstoneNo}</Text>
+              <Text style={styles.valueText}>:{item.OtherstoneNo}</Text>
             </View>
             <View
               style={{
@@ -187,7 +187,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}>
               <Text style={styles.detailText}>Otherstone{'\n'} Name</Text>
-              <Text style={styles.valueText}> :{item.OtherStoneName}</Text>
+              <Text style={styles.valueText}>:{item.OtherStoneName}</Text>
             </View>
           </View>
         </View>
