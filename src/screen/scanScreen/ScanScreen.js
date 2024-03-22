@@ -15,8 +15,9 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {Colors, Images, Font} from '../../constants';
+import {Colors, Images, Font,Global} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
+import { readFile } from 'react-native-fs';
 
 const ScanScreen = () => {
   const devices = useCameraDevices("wide-angle-camera"); 
@@ -73,11 +74,7 @@ const ScanScreen = () => {
 
  
    
-  // const getCamera = () =>{
-  //   const cameraAvailable= Camera.getAvailableCameraDevices();
-  //   console.log('jjhdl',cameraAvailable);
-  // }
-
+  
   const closeModal = () => {
     setShowModal(false);
   };
@@ -89,10 +86,25 @@ const ScanScreen = () => {
     const photo = await camera.current.takePhoto({
       enableShutterSound: false,
     });
+    Global.TAKE_PHOTO=photo?.path
+    const base64Image = convertImageToBase64(Global.TAKE_PHOTO)
     setShowModal(true);
     console.log('22222', photo);
+    console.log('GLOBAL TAKE PHOTO >>>>>',Global.TAKE_PHOTO);
+    console.log('B64-----',base64Image);
   };
 
+
+  const convertImageToBase64 = async(imagePath)=>{
+    try {
+      const imageData =await readFile(imagePath,'base64');
+      console.log ('image data>>>>',imageData)
+      return imageData;
+    }catch (error){
+      console.error('Error converting image to base64', error);
+      throw error; 
+    }
+  }
   // const toggleDetails = () => {
   //   setShowDetails(!showDetails);
   //   console.log('press');
