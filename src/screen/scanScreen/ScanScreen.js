@@ -27,6 +27,7 @@ const ScanScreen = () => {
   const flatListRef = useRef();
   const [showModal, setShowModal] = useState(false);
   const [showBasicDetailsModal, setShowBasicDetailsModal] = useState(false);
+  const [photoData, setPhotoData] = useState("");
  
 
 
@@ -88,10 +89,12 @@ const ScanScreen = () => {
     });
     Global.TAKE_PHOTO=photo?.path
     const base64Image = convertImageToBase64(Global.TAKE_PHOTO)
+    setPhotoData(Global.TAKE_PHOTO);
     setShowModal(true);
     console.log('22222', photo);
     console.log('GLOBAL TAKE PHOTO >>>>>',Global.TAKE_PHOTO);
     console.log('B64-----',base64Image);
+    console.log('PHOTO>>><<<>>>',photoData);
   };
 
 
@@ -217,7 +220,8 @@ const ScanScreen = () => {
             marginLeft: responsiveHeight(1),
             marginTop: responsiveHeight(5),
           }}>
-          <Image source={item.image} style={styles.imageStyle} />
+          {/* <Image source={item.image} style={styles.imageStyle} /> */}
+          <Image source={photoData} style={styles.imageStyle} />
           <View
             style={{
               position: 'absolute',
