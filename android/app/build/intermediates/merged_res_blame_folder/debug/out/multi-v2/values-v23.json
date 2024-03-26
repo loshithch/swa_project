@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.swa_project.app-mergeDebugResources-40:/values-v23/values-v23.xml",
+            "outputFile": "com.swa_project.app-mergeDebugResources-41:/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/Users/zinfog/.gradle/caches/transforms-3/6119c53d075509c7c00b74ccdeb41c3b/transformed/cardview-1.0.0/res/values-v23/values-v23.xml",

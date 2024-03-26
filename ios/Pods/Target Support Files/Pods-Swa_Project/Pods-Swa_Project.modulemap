@@ -1,0 +1,6 @@
+module Pods_Swa_Project {
+  umbrella header "Pods-Swa_Project-umbrella.h"
+
+  export *
+  module * { export * }
+}

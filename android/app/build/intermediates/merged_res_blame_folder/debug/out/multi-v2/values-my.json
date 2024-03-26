@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.swa_project.app-mergeDebugResources-40:/values-my/values-my.xml",
+            "outputFile": "com.swa_project.app-mergeDebugResources-41:/values-my/values-my.xml",
             "map": [
                 {
                     "source": "/Users/zinfog/.gradle/caches/transforms-3/b3627ca143232ec2ceb6e319eb18971d/transformed/appcompat-1.6.1/res/values-my/values-my.xml",
