@@ -220,8 +220,8 @@ const ScanScreen = () => {
             marginLeft: responsiveHeight(1),
             marginTop: responsiveHeight(5),
           }}>
-          {/* <Image source={item.image} style={styles.imageStyle} /> */}
-          <Image source={photoData} style={styles.imageStyle} />
+          <Image source={item.image} style={styles.imageStyle} />
+          {/* <Image source={photoData} style={styles.imageStyle} /> */}
           <View
             style={{
               position: 'absolute',
