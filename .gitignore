@@ -33,6 +33,29 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+dependencies-accessors.lock
+executionHistory.bin
+executionHistory.lock
+fileHashes.bin
+fileHashes.lock
+buildOutputCleanup.lock
+outputFiles.bin
+PackageList.java
+R.jar
+classes.dex
+classes.dex
+classes.dex
+out
+dex-renamer-state.txt
+PackageList.class
+PackageList.dex
+last-build.bin
+build-history.bin
+app-debug.apk
+manifest-merger-debug-report.txt
+previous-compilation-data.bin
+
+
 
 # node.js
 #
