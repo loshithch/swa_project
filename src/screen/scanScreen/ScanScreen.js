@@ -18,6 +18,7 @@ import {
 import {Colors, Images, Font,Global} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import { readFile } from 'react-native-fs';
+import axios from 'axios';
 
 const ScanScreen = () => {
   const devices = useCameraDevices("wide-angle-camera"); 
@@ -28,6 +29,7 @@ const ScanScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [showBasicDetailsModal, setShowBasicDetailsModal] = useState(false);
   const [photoData, setPhotoData] = useState("");
+  const [data,setData]=useState([dummyDetail])
  
 
 
@@ -89,8 +91,10 @@ const ScanScreen = () => {
     });
     Global.TAKE_PHOTO=photo?.path
     const base64Image = convertImageToBase64(Global.TAKE_PHOTO)
-    setPhotoData(Global.TAKE_PHOTO);
+    // setPhotoData(Global.TAKE_PHOTO);
+    sendImageToAPI(photoData)
     setShowModal(true);
+    sendImageToAPI(base64Image);
     console.log('22222', photo);
     console.log('GLOBAL TAKE PHOTO >>>>>',Global.TAKE_PHOTO);
     console.log('B64-----',base64Image);
@@ -108,6 +112,18 @@ const ScanScreen = () => {
       throw error; 
     }
   }
+
+  const sendImageToAPI = async (base64Image) => {
+    try {
+      const response = await axios.post('https://lensescanapitest.zinfog.in', {
+        image: base64Image,
+      });
+      console.log('API Response:', response.data);
+      // Handle the response as needed, e.g., update state with response data
+    } catch (error) {
+      console.error('Error sending image to API:', error);
+    }
+  };
   // const toggleDetails = () => {
   //   setShowDetails(!showDetails);
   //   console.log('press');
@@ -219,6 +235,8 @@ const ScanScreen = () => {
             backgroundColor: Colors.WHITE_COLOR,
             marginLeft: responsiveHeight(1),
             marginTop: responsiveHeight(5),
+            borderBottomWidth:responsiveWidth(.1),
+            borderBottomColor:'grey'
           }}>
           <Image source={item.image} style={styles.imageStyle} />
           {/* <Image source={photoData} style={styles.imageStyle} /> */}
@@ -288,20 +306,21 @@ const ScanScreen = () => {
         onRequestClose={closeModal}>
         <View
           style={{
-            height: responsiveHeight(30),
+            height: data.length>2?responsiveHeight(50):responsiveHeight(30),
             width: responsiveWidth(94),
             justifyContent: 'center',
             backgroundColor: Colors.WHITE_COLOR,
-            marginTop: responsiveHeight(68),
+            marginTop: data.length>2?responsiveHeight(50):responsiveHeight(68),
             borderRadius: responsiveHeight(2),
             marginHorizontal: responsiveHeight(1),
           }}>
+
           <FlatList
-            data={dummyDetail}
+            data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             ref={flatListRef}
-            scrollEnabled={false}
+            // scrollEnabled={false}
           />
           <TouchableOpacity
             onPress={() => toggleBasicDetailsModal()}
