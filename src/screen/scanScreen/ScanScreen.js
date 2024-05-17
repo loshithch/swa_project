@@ -62,6 +62,11 @@ const ScanScreen = () => {
 
     // },
   ];
+   // Use useEffect to log the state after it has been updated
+  useEffect(() => {
+    console.log("API STATE DATA", apiResponseData);
+  }, [apiResponseData]);
+
   const checkPermission = async () => {
     const cameraPermission = await Camera.requestCameraPermission();
     console.log("444", cameraPermission);
@@ -116,9 +121,12 @@ const ScanScreen = () => {
   };
 
   // API CALL
+
   const sendImageToAPI = async (base64Image) => {
     const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
-    console.log("eqwefwef>>>>", base64ImageWithPrefix);
+    console.log("Image being sent:", base64ImageWithPrefix);
+    setLoading(true);
+
     try {
       const response = await fetch(
         "https://lenseapi.zinfog.in/api/scan_image",
@@ -132,16 +140,34 @@ const ScanScreen = () => {
       );
 
       const data = await response.json();
-      setApiResponseData(data);
-      console.log("dsfsdfsdgedesw>>>>", apiResponseData);
+       // Assuming the response has a `results.data` structure
+       const transformedData = data.results.data.map((item) => ({
+        id: item.product_id.toString(), // Ensure id is a string
+        SKU: item.sku,
+        MRP: item.total_price_final,
+        Category: item.category.name,
+        image: { uri: `http://swaordernewtest.zinfog.in${item.thumbnail_image}` },
+        GrossWeight:item.gross_weight,
+        DimondWeight:item.diamond_weight_preview,
+        DimondNo:item.category.id,
+        // OtherStoneWeight,
+        // OtherstoneNo,
+        // OtherStoneName
+
+
+        
+
+
+      }));
+      setApiResponseData(transformedData);
       console.log("API Response:", data);
       setLoading(false);
-      // Handle the response as needed, e.g., update state with response data
     } catch (error) {
       console.error("Error sending image to API:", error);
       setLoading(false);
     }
   };
+
 
   const scanButtonAction = () => {
     setShowModal(false);
@@ -153,6 +179,7 @@ const ScanScreen = () => {
   };
 
   const renderDetailItem = ({ item, index }) => {
+    console.log('gdggddgjsjsjsjsjd.....',item);
     return (
       <View>
         <View
@@ -252,6 +279,7 @@ const ScanScreen = () => {
     );
   };
   const renderItem = ({ item, index }) => {
+    console.log('gfggfgfgfgfgfg',item)
     return (
       <View>
         <View
@@ -357,11 +385,11 @@ const ScanScreen = () => {
             }}
           >
             <FlatList
-              data={dummyDetail}
+              data={apiResponseData}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               ref={flatListRef}
-              // scrollEnabled={false}
+              scrollEnabled={false}
             />
             <TouchableOpacity
               onPress={() => toggleBasicDetailsModal()}
@@ -433,7 +461,7 @@ const ScanScreen = () => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={dummyDetail}
+            data={apiResponseData}
             renderItem={renderDetailItem}
             keyExtractor={(item) => item.id}
             ref={flatListRef}
