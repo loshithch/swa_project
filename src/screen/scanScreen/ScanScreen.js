@@ -19,6 +19,7 @@ import { Colors, Images, Font, Global } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { readFile } from "react-native-fs";
 import axios from "axios";
+import FastImage from "react-native-fast-image";
 
 const ScanScreen = () => {
   const devices = useCameraDevices("wide-angle-camera");
@@ -32,40 +33,43 @@ const ScanScreen = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [apiResponseData, setApiResponseData] = useState({});
+  const [apiData,setApiData]=useState({})
+  const [noProductsFoundMessage, setNoProductsFoundMessage] = useState('');
 
-  const dummyDetail = [
-    {
-      id: "1",
-      SKU: "567655",
-      MRP: "450000",
-      Category: "Slotaire",
-      GrossWeight: "1.05 GM",
-      DimondWeight: "0.05 CT",
-      DimondNo: "SJI2345789789",
-      OtherStoneWeight: "0.08 GM",
-      OtherstoneNo: "12",
-      OtherStoneName: "Ruby",
-      image: Images.JEWEL_IMAGE,
-    },
-    // {
-    //   id:"2",
-    //   SKU:"567655",
-    //   MRP:"450000",
-    //   Category:"Slotaire",
-    //   GrossWeight:"1.05 GM",
-    //   DimondWeight:"0.05 CT",
-    //   DimondNo:"SJI2345789789",
-    //   OtherStoneWeight:"0.08 GM",
-    //   OtherstoneNo: "12",
-    //   OtherStoneName:'Ruby',
-    //   image:Images.JEWEL_IMAGE
 
-    // },
-  ];
+  // const dummyDetail = [
+  //   {
+  //     id: "1",
+  //     SKU: "567655",
+  //     MRP: "450000",
+  //     Category: "Slotaire",
+  //     GrossWeight: "1.05 GM",
+  //     DimondWeight: "0.05 CT",
+  //     DimondNo: "SJI2345789789",
+  //     OtherStoneWeight: "0.08 GM",
+  //     OtherstoneNo: "12",
+  //     OtherStoneName: "Ruby",
+  //     image: Images.JEWEL_IMAGE,
+  //   },
+  //   // {
+  //   //   id:"2",
+  //   //   SKU:"567655",
+  //   //   MRP:"450000",
+  //   //   Category:"Slotaire",
+  //   //   GrossWeight:"1.05 GM",
+  //   //   DimondWeight:"0.05 CT",
+  //   //   DimondNo:"SJI2345789789",
+  //   //   OtherStoneWeight:"0.08 GM",
+  //   //   OtherstoneNo: "12",
+  //   //   OtherStoneName:'Ruby',
+  //   //   image:Images.JEWEL_IMAGE
+
+  //   // },
+  // ];
    // Use useEffect to log the state after it has been updated
   useEffect(() => {
     console.log("API STATE DATA", apiResponseData);
-  }, [apiResponseData]);
+  }, [apiResponseData,apiData]);
 
   const checkPermission = async () => {
     const cameraPermission = await Camera.requestCameraPermission();
@@ -88,7 +92,7 @@ const ScanScreen = () => {
   const takePicture = async () => {
     try {
       const photo = await camera.current.takePhoto({
-        enableShutterSound: false,
+        enableShutterSound:true
       });
       console.log("Photo taken:", photo);
 
@@ -123,10 +127,11 @@ const ScanScreen = () => {
   // API CALL
 
   const sendImageToAPI = async (base64Image) => {
+    console.log('api call done');
     const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
     console.log("Image being sent:", base64ImageWithPrefix);
     setLoading(true);
-
+  
     try {
       const response = await fetch(
         "https://lenseapi.zinfog.in/api/scan_image",
@@ -138,35 +143,139 @@ const ScanScreen = () => {
           body: JSON.stringify({ image: base64ImageWithPrefix }),
         }
       );
-
+  
       const data = await response.json();
-       // Assuming the response has a `results.data` structure
-       const transformedData = data.results.data.map((item) => ({
-        id: item.product_id.toString(), // Ensure id is a string
-        SKU: item.sku,
-        MRP: item.total_price_final,
-        Category: item.category.name,
-        image: { uri: `http://swaordernewtest.zinfog.in${item.thumbnail_image}` },
-        GrossWeight:item.gross_weight,
-        DimondWeight:item.diamond_weight_preview,
-        DimondNo:item.category.id,
-        // OtherStoneWeight,
-        // OtherstoneNo,
-        // OtherStoneName
+      console.log('API RESPONSE>>>', data);
+      setApiData(data);
+  
+      if (data?.result?.status === 200) {
+        const transformedData = data?.result?.data.map((item) => ({
+          id: item.product_id.toString(), // Ensure id is a string
+          SKU: item.sku,
+          MRP: item.total_price_final,
+          Category: item.category.name,
+          image: { uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}` },
+          DimondWeight: item.diamond_weight_preview,
+          DimondNo: item.category.id,
+          // OtherStoneWeight,
+          // OtherstoneNo,
+          // OtherStoneName
+        }));
+        setApiResponseData(transformedData);
+        setShowModal(true); // Show the modal if products are found
+      } else {
+        setNoProductsFoundMessage(data?.result?.reason);
+        setShowModal(false); // Ensure the modal is not shown
+      }
+    } catch (error) {
+      console.error("Error sending image to API:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // const sendImageToAPI = async (base64Image) => {
+  //   console.log('api call done');
+  //   const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
+  //   console.log("Image being sent:", base64ImageWithPrefix);
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await fetch(
+  //       "https://lenseapi.zinfog.in/api/scan_image",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ image: base64ImageWithPrefix }),
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     console.log('API RESPONSE>>>',data);
+  //     setApiData(data)
+  //     console.log("state data",apiData);
+  //     if (data){
+  //       if(data?.result?.status === 200){
+  //         const transformedData = data?.result?.data.map((item) => ({
+  //           id: item.product_id.toString(), // Ensure id is a string
+  //           SKU: item.sku,
+  //           MRP: item.total_price_final,
+  //           Category: item.category.name,
+  //           image: { uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}` },
+  //           DimondWeight:item.diamond_weight_preview,
+  //           DimondNo:item.category.id,
+  //           // OtherStoneWeight,
+  //           // OtherstoneNo,
+  //           // OtherStoneName
+  //        }));
+  //        setApiResponseData(transformedData);
+        
+  //        setLoading(false);
+         
+  //     } 
+  //     else{
+  //       setNoProductsFoundMessage(data?.result?.reason);
+  //         console.log('adsfsdfs>>',data?.result?.reason)
+
+  //     }
+
+  //     }
+  //      // Assuming the response has a results.data structure
+       
+     
+  //   } catch (error) {
+  //     console.error("Error sending image to API:", error);
+  //     setLoading(false);
+  //   }
+  // };
+  // const sendImageToAPI = async (base64Image) => {
+  //   const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
+  //   console.log("Image being sent:", base64ImageWithPrefix);
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await fetch(
+  //       "https://lenseapi.zinfog.in/api/scan_image",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ image: base64ImageWithPrefix }),
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     console.log("API Response:", data);
+  //      // Assuming the response has a `results.data` structure
+  //      const transformedData = data.results.data.map((item) => ({
+  //       id: item.product_id.toString(), // Ensure id is a string
+  //       SKU: item.sku,
+  //       MRP: item.total_price_final,
+  //       Category: item.category.name,
+  //       image: { uri: `http://swaordernewtest.zinfog.in${item.thumbnail_image}` },
+  //       GrossWeight:item.gross_weight,
+  //       DimondWeight:item.diamond_weight_preview,
+  //       DimondNo:item.category.id,
+  //       // OtherStoneWeight,
+  //       // OtherstoneNo,
+  //       // OtherStoneName
 
 
         
 
 
-      }));
-      setApiResponseData(transformedData);
-      console.log("API Response:", data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error sending image to API:", error);
-      setLoading(false);
-    }
-  };
+  //     }));
+  //     setApiResponseData(transformedData);
+    
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("Error sending image to API:", error);
+  //     setLoading(false);
+  //   }
+  // };
 
 
   const scanButtonAction = () => {
@@ -179,7 +288,7 @@ const ScanScreen = () => {
   };
 
   const renderDetailItem = ({ item, index }) => {
-    console.log('gdggddgjsjsjsjsjd.....',item);
+    // console.log('>>>>>>>>>>>>>>',item?.image);
     return (
       <View>
         <View
@@ -190,7 +299,12 @@ const ScanScreen = () => {
             marginLeft: responsiveHeight(1),
           }}
         >
-          <Image source={item.image} style={styles.imageStyle} />
+         <FastImage
+            style={styles.imageStyle}
+            source={item.image}
+            resizeMode={FastImage.resizeMode.cover} // You can choose other resize modes if needed
+          />
+          {/* <Image source={item.image} style={styles.imageStyle} /> */}
           <View
             style={{
               position: "absolute",
@@ -279,7 +393,7 @@ const ScanScreen = () => {
     );
   };
   const renderItem = ({ item, index }) => {
-    console.log('gfggfgfgfgfgfg',item)
+    // console.log('gfggfgfgfgfgfg',item)
     return (
       <View>
         <View
@@ -293,7 +407,12 @@ const ScanScreen = () => {
             borderBottomColor: "grey",
           }}
         >
-          <Image source={item.image} style={styles.imageStyle} />
+         <FastImage
+            style={styles.imageStyle}
+            source={item.image}
+            resizeMode={FastImage.resizeMode.cover} // You can choose other resize modes if needed
+          />
+          {/* <Image source={{ uri: item.image.uri }} style={styles.imageStyle} /> */}
           {/* <Image source={photoData} style={styles.imageStyle} /> */}
           <View
             style={{
@@ -359,12 +478,12 @@ const ScanScreen = () => {
         <Image source={Images.FLASH_ICON} />
       </TouchableOpacity>
       {loading ? (
-        <ActivityIndicator size="large" color={Colors.BUTTON_COLOR} />
-      ) : apiResponseData?.status === "Failed" ? (
-        <View style={{ alignItems: "center", marginTop: responsiveHeight(3) }}>
-          <Text style={{ color: "red" }}>{apiResponseData.message}</Text>
-        </View>
-      ) : (
+      <ActivityIndicator size="large" color={Colors.BUTTON_COLOR} />
+    ) : noProductsFoundMessage ? (
+      <View style={{ alignItems: "center", marginTop: responsiveHeight(3) }}>
+        <Text style={{ color: "red" }}>{noProductsFoundMessage}</Text>
+      </View>
+    ) : (
         <RNModal
           visible={showModal}
           transparent={true}
@@ -389,7 +508,7 @@ const ScanScreen = () => {
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               ref={flatListRef}
-              scrollEnabled={false}
+              scrollEnabled={true}
             />
             <TouchableOpacity
               onPress={() => toggleBasicDetailsModal()}
@@ -465,7 +584,7 @@ const ScanScreen = () => {
             renderItem={renderDetailItem}
             keyExtractor={(item) => item.id}
             ref={flatListRef}
-            scrollEnabled={false}
+            scrollEnabled={true}
           />
           <View
             style={{
