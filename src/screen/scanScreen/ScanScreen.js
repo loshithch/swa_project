@@ -149,20 +149,42 @@ const ScanScreen = () => {
       setApiData(data);
 
       if (data?.result?.status === 200) {
-        const transformedData = data?.result?.data.map((item) => ({
-          id: item.product_id.toString(), // Ensure id is a string
-          SKU: item.sku,
-          MRP: item.total_price_final,
-          Category: item.category.name,
-          image: {
-            uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
-          },
-          DimondWeight: item.diamond_weight_preview,
-          DimondNo: item.category.id,
-          // OtherStoneWeight,
-          // OtherstoneNo,
-          // OtherStoneName
-        }));
+        const transformedData = data?.result?.data.map((item) => {
+          // Handle otherstone_weight and otherstone_name extraction
+          const otherStoneWeight = item.otherstone_weight ? item.otherstone_weight.map(stoneWeight => stoneWeight.total_weight).join(', ') : '';
+          const otherStoneName = item.otherstone_name ? item.otherstone_name.map(stone => stone.name).join(', ') : '';
+  
+          return {
+            id: item.product_id.toString(), // Ensure id is a string
+            SKU: item.sku,
+            MRP: item.total_price_final,
+            Category: item.category.name,
+            image: {
+              uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
+            },
+            DiamondWeight: item.diamond_weight_preview,
+            DiamondNo: item.category.id,
+            OtherStoneWeight: otherStoneWeight,
+            OtherStoneName: otherStoneName
+          };
+        });
+
+        // const transformedData = data?.result?.data.map((item) => (
+        //   {
+
+        //   id: item.product_id.toString(), // Ensure id is a string
+        //   SKU: item.sku,
+        //   MRP: item.total_price_final,
+        //   Category: item.category.name,
+        //   image: {
+        //     uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
+        //   },
+        //   DimondWeight: item.diamond_weight_preview,
+        //   DimondNo: item.category.id,
+        //   // OtherStoneWeight,
+        //   // OtherstoneNo,
+        //   // OtherStoneName
+        // }));
         setApiResponseData(transformedData);
         setItemCount(data?.result?.data.length);
         setShowModal(true); // Show the modal if products are found
