@@ -33,9 +33,9 @@ const ScanScreen = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [apiResponseData, setApiResponseData] = useState({});
-  const [apiData,setApiData]=useState({})
-  const [noProductsFoundMessage, setNoProductsFoundMessage] = useState('');
-
+  const [apiData, setApiData] = useState({});
+  const [noProductsFoundMessage, setNoProductsFoundMessage] = useState("");
+  const [itemCount, setItemCount] = useState(0);
 
   // const dummyDetail = [
   //   {
@@ -66,10 +66,10 @@ const ScanScreen = () => {
 
   //   // },
   // ];
-   // Use useEffect to log the state after it has been updated
+  // Use useEffect to log the state after it has been updated
   useEffect(() => {
     console.log("API STATE DATA", apiResponseData);
-  }, [apiResponseData,apiData]);
+  }, [apiResponseData, apiData]);
 
   const checkPermission = async () => {
     const cameraPermission = await Camera.requestCameraPermission();
@@ -92,7 +92,7 @@ const ScanScreen = () => {
   const takePicture = async () => {
     try {
       const photo = await camera.current.takePhoto({
-        enableShutterSound:true
+        enableShutterSound: true,
       });
       console.log("Photo taken:", photo);
 
@@ -127,11 +127,11 @@ const ScanScreen = () => {
   // API CALL
 
   const sendImageToAPI = async (base64Image) => {
-    console.log('api call done');
+    console.log("api call done");
     const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
     console.log("Image being sent:", base64ImageWithPrefix);
     setLoading(true);
-  
+
     try {
       const response = await fetch(
         "https://lenseapi.zinfog.in/api/scan_image",
@@ -143,18 +143,20 @@ const ScanScreen = () => {
           body: JSON.stringify({ image: base64ImageWithPrefix }),
         }
       );
-  
+
       const data = await response.json();
-      console.log('API RESPONSE>>>', data);
+      console.log("API RESPONSE>>>", data);
       setApiData(data);
-  
+
       if (data?.result?.status === 200) {
         const transformedData = data?.result?.data.map((item) => ({
           id: item.product_id.toString(), // Ensure id is a string
           SKU: item.sku,
           MRP: item.total_price_final,
           Category: item.category.name,
-          image: { uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}` },
+          image: {
+            uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
+          },
           DimondWeight: item.diamond_weight_preview,
           DimondNo: item.category.id,
           // OtherStoneWeight,
@@ -162,6 +164,7 @@ const ScanScreen = () => {
           // OtherStoneName
         }));
         setApiResponseData(transformedData);
+        setItemCount(data?.result?.data.length);
         setShowModal(true); // Show the modal if products are found
       } else {
         setNoProductsFoundMessage(data?.result?.reason);
@@ -211,10 +214,10 @@ const ScanScreen = () => {
   //           // OtherStoneName
   //        }));
   //        setApiResponseData(transformedData);
-        
+
   //        setLoading(false);
-         
-  //     } 
+
+  //     }
   //     else{
   //       setNoProductsFoundMessage(data?.result?.reason);
   //         console.log('adsfsdfs>>',data?.result?.reason)
@@ -223,8 +226,7 @@ const ScanScreen = () => {
 
   //     }
   //      // Assuming the response has a results.data structure
-       
-     
+
   //   } catch (error) {
   //     console.error("Error sending image to API:", error);
   //     setLoading(false);
@@ -263,20 +265,15 @@ const ScanScreen = () => {
   //       // OtherstoneNo,
   //       // OtherStoneName
 
-
-        
-
-
   //     }));
   //     setApiResponseData(transformedData);
-    
+
   //     setLoading(false);
   //   } catch (error) {
   //     console.error("Error sending image to API:", error);
   //     setLoading(false);
   //   }
   // };
-
 
   const scanButtonAction = () => {
     setShowModal(false);
@@ -299,7 +296,7 @@ const ScanScreen = () => {
             marginLeft: responsiveHeight(1),
           }}
         >
-         <FastImage
+          <FastImage
             style={styles.imageStyle}
             source={item.image}
             resizeMode={FastImage.resizeMode.cover} // You can choose other resize modes if needed
@@ -407,7 +404,7 @@ const ScanScreen = () => {
             borderBottomColor: "grey",
           }}
         >
-         <FastImage
+          <FastImage
             style={styles.imageStyle}
             source={item.image}
             resizeMode={FastImage.resizeMode.cover} // You can choose other resize modes if needed
@@ -478,12 +475,12 @@ const ScanScreen = () => {
         <Image source={Images.FLASH_ICON} />
       </TouchableOpacity>
       {loading ? (
-      <ActivityIndicator size="large" color={Colors.BUTTON_COLOR} />
-    ) : noProductsFoundMessage ? (
-      <View style={{ alignItems: "center", marginTop: responsiveHeight(3) }}>
-        <Text style={{ color: "red" }}>{noProductsFoundMessage}</Text>
-      </View>
-    ) : (
+        <ActivityIndicator size="large" color={Colors.BUTTON_COLOR} />
+      ) : noProductsFoundMessage ? (
+        <View style={{ alignItems: "center", marginTop: responsiveHeight(3) }}>
+          <Text style={{ color: "red" }}>{noProductsFoundMessage}</Text>
+        </View>
+      ) : (
         <RNModal
           visible={showModal}
           transparent={true}
@@ -503,6 +500,20 @@ const ScanScreen = () => {
               marginHorizontal: responsiveHeight(1),
             }}
           >
+            {itemCount > 1 && (
+              <View style={{ marginLeft: responsiveHeight(2) }}>
+                <Text
+                  style={{
+                    color: "black",
+                    marginTop: responsiveHeight(1),
+                    fontSize: responsiveFontSize(2),
+                    fontWeight: "500",
+                  }}
+                >
+                  found {itemCount} similar product
+                </Text>
+              </View>
+            )}
             <FlatList
               data={apiResponseData}
               renderItem={renderItem}
