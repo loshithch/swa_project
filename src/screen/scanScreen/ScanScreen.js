@@ -22,7 +22,7 @@ import axios from "axios";
 import FastImage from "react-native-fast-image";
 
 const ScanScreen = () => {
-  const devices = useCameraDevices("ultra-wide-angle-camera");
+  const devices = useCameraDevices("wide-angle-camera");
   const device = devices.back;
   const navigation = useNavigation();
   const camera = useRef(null);
