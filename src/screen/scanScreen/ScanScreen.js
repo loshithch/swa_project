@@ -162,7 +162,8 @@ const ScanScreen = () => {
             image: {
               uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
             },
-            DiamondWeight: item.diamond_weight_preview,
+            GrossWeight:item?.gross_weight,
+            DiamondWeight: item?.diamond_weight_preview,
             DiamondNo: item.category.id,
             OtherStoneWeight: otherStoneWeight,
             OtherStoneName: otherStoneName
@@ -187,6 +188,7 @@ const ScanScreen = () => {
         // }));
         setApiResponseData(transformedData);
         setItemCount(data?.result?.data.length);
+        setNoProductsFoundMessage(''); 
         setShowModal(true); // Show the modal if products are found
       } else {
         setNoProductsFoundMessage(data?.result?.reason);
@@ -194,6 +196,7 @@ const ScanScreen = () => {
       }
     } catch (error) {
       console.error("Error sending image to API:", error);
+      setShowModal(false)
     } finally {
       setLoading(false);
     }
@@ -368,7 +371,7 @@ const ScanScreen = () => {
               }}
             >
               <Text style={styles.detailText}>Dimond weight</Text>
-              <Text style={styles.valueText}>:{item.DimondWeight}</Text>
+              <Text style={styles.valueText}>:{item.DiamondWeight}</Text>
             </View>
             <View
               style={{
