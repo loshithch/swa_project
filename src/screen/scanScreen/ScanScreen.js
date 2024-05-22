@@ -370,7 +370,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}
             >
-              <Text style={styles.detailText}>Dimond weight</Text>
+              <Text style={styles.detailText}>Diamond weight</Text>
               <Text style={styles.valueText}>:{item.DiamondWeight}</Text>
             </View>
             <View
@@ -379,7 +379,7 @@ const ScanScreen = () => {
                 marginTop: responsiveHeight(2),
               }}
             >
-              <Text style={styles.detailText}>Dimond No</Text>
+              <Text style={styles.detailText}>Diamond No</Text>
               <Text style={styles.valueText}>:{item.DimondNo}</Text>
             </View>
             <View
