@@ -22,7 +22,7 @@ import axios from "axios";
 import FastImage from "react-native-fast-image";
 
 const ScanScreen = () => {
-  const devices = useCameraDevices("wide-angle-camera");
+  const devices = useCameraDevices();
   const device = devices.back;
   const navigation = useNavigation();
   const camera = useRef(null);
@@ -88,6 +88,39 @@ const ScanScreen = () => {
   if (device == null) {
     return <ActivityIndicator />;
   }
+
+
+  // const takePicture = async () => {
+  //   try {
+  //     const photo = await camera.current.takePhoto({
+  //       enableShutterSound: true,
+  //     });
+  //     console.log("Photo taken:", photo);
+  
+  //     if (photo?.path) {
+  //       const formData = await createFormData(photo.path);
+  //       console.log('FormData Image Details:', formData);
+  
+  //       setPhotoData(photo.path);
+  //       setShowModal(true);
+  //       setLoading(true); // Show loader
+  //       await sendImageToAPI(formData);
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error taking picture:", error);
+  //   }
+  // };
+  
+  // const createFormData = async (imagePath) => {
+  //   const formData = new FormData();
+  //   formData.append('photo', {
+  //     uri: imagePath,
+  //     name: 'photo.jpg',
+  //     type: 'image/jpeg'
+  //   });
+  //   return formData;
+  // };
 
   const takePicture = async () => {
     try {
@@ -169,23 +202,6 @@ const ScanScreen = () => {
             OtherStoneName: otherStoneName
           };
         });
-
-        // const transformedData = data?.result?.data.map((item) => (
-        //   {
-
-        //   id: item.product_id.toString(), // Ensure id is a string
-        //   SKU: item.sku,
-        //   MRP: item.total_price_final,
-        //   Category: item.category.name,
-        //   image: {
-        //     uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}`,
-        //   },
-        //   DimondWeight: item.diamond_weight_preview,
-        //   DimondNo: item.category.id,
-        //   // OtherStoneWeight,
-        //   // OtherstoneNo,
-        //   // OtherStoneName
-        // }));
         setApiResponseData(transformedData);
         setItemCount(data?.result?.data.length);
         setNoProductsFoundMessage(''); 
@@ -202,103 +218,7 @@ const ScanScreen = () => {
     }
   };
 
-  // const sendImageToAPI = async (base64Image) => {
-  //   console.log('api call done');
-  //   const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
-  //   console.log("Image being sent:", base64ImageWithPrefix);
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://lenseapi.zinfog.in/api/scan_image",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ image: base64ImageWithPrefix }),
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     console.log('API RESPONSE>>>',data);
-  //     setApiData(data)
-  //     console.log("state data",apiData);
-  //     if (data){
-  //       if(data?.result?.status === 200){
-  //         const transformedData = data?.result?.data.map((item) => ({
-  //           id: item.product_id.toString(), // Ensure id is a string
-  //           SKU: item.sku,
-  //           MRP: item.total_price_final,
-  //           Category: item.category.name,
-  //           image: { uri: `https://swaordernewtest.zinfog.in${item.thumbnail_image}` },
-  //           DimondWeight:item.diamond_weight_preview,
-  //           DimondNo:item.category.id,
-  //           // OtherStoneWeight,
-  //           // OtherstoneNo,
-  //           // OtherStoneName
-  //        }));
-  //        setApiResponseData(transformedData);
-
-  //        setLoading(false);
-
-  //     }
-  //     else{
-  //       setNoProductsFoundMessage(data?.result?.reason);
-  //         console.log('adsfsdfs>>',data?.result?.reason)
-
-  //     }
-
-  //     }
-  //      // Assuming the response has a results.data structure
-
-  //   } catch (error) {
-  //     console.error("Error sending image to API:", error);
-  //     setLoading(false);
-  //   }
-  // };
-  // const sendImageToAPI = async (base64Image) => {
-  //   const base64ImageWithPrefix = `data:image/jpeg;base64,${base64Image}`;
-  //   console.log("Image being sent:", base64ImageWithPrefix);
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://lenseapi.zinfog.in/api/scan_image",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ image: base64ImageWithPrefix }),
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     console.log("API Response:", data);
-  //      // Assuming the response has a `results.data` structure
-  //      const transformedData = data.results.data.map((item) => ({
-  //       id: item.product_id.toString(), // Ensure id is a string
-  //       SKU: item.sku,
-  //       MRP: item.total_price_final,
-  //       Category: item.category.name,
-  //       image: { uri: `http://swaordernewtest.zinfog.in${item.thumbnail_image}` },
-  //       GrossWeight:item.gross_weight,
-  //       DimondWeight:item.diamond_weight_preview,
-  //       DimondNo:item.category.id,
-  //       // OtherStoneWeight,
-  //       // OtherstoneNo,
-  //       // OtherStoneName
-
-  //     }));
-  //     setApiResponseData(transformedData);
-
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("Error sending image to API:", error);
-  //     setLoading(false);
-  //   }
-  // };
+  
 
   const scanButtonAction = () => {
     setShowModal(false);
@@ -319,6 +239,8 @@ const ScanScreen = () => {
             width: responsiveWidth(80),
             backgroundColor: Colors.WHITE_COLOR,
             marginLeft: responsiveHeight(1),
+            borderBottomWidth: responsiveWidth(0.1),
+            borderBottomColor: "grey",
           }}
         >
           <FastImage
