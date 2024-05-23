@@ -7,6 +7,7 @@ import {
   Modal as RNModal,
   FlatList,
   TouchableOpacity,
+  SafeAreaView
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Camera, useCameraDevices } from "react-native-vision-camera";
@@ -390,7 +391,7 @@ const ScanScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Camera
         ref={camera}
         style={StyleSheet.absoluteFill}
@@ -584,7 +585,7 @@ const ScanScreen = () => {
           </View>
         </View>
       </RNModal>
-    </View>
+    </SafeAreaView>
   );
 };
 

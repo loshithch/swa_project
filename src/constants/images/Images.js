@@ -10,4 +10,5 @@ export default{
     JEWEL_IMAGE:require('../../assets/images/jwel.png'),
     UPARROW_IMAGE:require('../../assets/images/up_arrow.png'),
     DOWN_ARROW_IMAGE:require('../../assets/images/Dwn_arrow.png'),
+    CONNECTION_LOST_IMAGE:require('../../assets/images/no-wifi.png')
 }
