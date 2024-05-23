@@ -20,7 +20,9 @@ const SplashScreen = () => {
     <Image source={Images.SCAN_ICON}/>
 <Text style={styles.buttonText}>TAP TO SCAN</Text>
     </TouchableOpacity>
-    
+    <View style={{marginTop:responsiveHeight(10)}}>
+        <Text>v 0.0.1</Text>
+    </View>
     </View>
   )
 }
