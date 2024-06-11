@@ -77,3 +77,7 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+
+FIGMA FILE LINK :https://www.figma.com/design/XBGnzSrIH5XmozeMbTlRyA/swa-scan-application?node-id=1-5&t=8M9Lh8hFf2jV0nGF-0
